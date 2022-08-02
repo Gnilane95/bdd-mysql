@@ -15,7 +15,8 @@ $query = $pdo->prepare($sql);
 $query->execute();
 //4-On stock le résultat dans une variable
 $games = $query->fetchAll();
-debug_array($games);
+#debug_array($games);
+
 
 ?>
     <!-- main content -->
@@ -40,20 +41,26 @@ debug_array($games);
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- row 1 -->
-                    <tr>
-                        <th>1</th>
-                        <td>Marion</td>
-                        <td>Plateforme</td>
-                        <td>Switch</td>
-                        <td>33.99</td>
-                        <td>7</td>
-                        <td>
-                            <a href="show.php">
-                                <img src="images/loupe-private-eye.png" alt="loupe" class="w-4">
-                            </a>
-                        </td>
-                    </tr>
+                           <?php
+                                if (count($games) == 0) {
+                                    echo "<tr><td class=text-center>Pas de jeux disponibles actuellement.</td></tr>";
+                                } else { ?>
+                                    <?php foreach ($games as $game) : ?>
+                                    <tr>
+                                        <th><?= $game ['id'] ?></th>
+                                        <td><?= $game ['name'] ?></td>
+                                        <td><?= $game ['genre'] ?></td>
+                                        <td><?= $game ['plateforms'] ?></td>
+                                        <td><?= $game ['price'] ?></td>
+                                        <td><?= $game ['PEGI'] ?></td>
+                                        <td>
+                                            <a href="show.php">
+                                                <img src="images/loupe-private-eye.png" alt="loupe" class="w-4">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach ?>
+                                <?php } ?>
                 </tbody>
             </table>
         </div>
