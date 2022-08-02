@@ -54,13 +54,14 @@ $games = $query->fetchAll();
                                         <td><?= $game ['price'] ?></td>
                                         <td><?= $game ['PEGI'] ?></td>
                                         <td>
-                                            <a href="show.php">
+                                            <a href="show.php?id=<?= $game['id']?>&name=<?= $game['name']?>">
                                                 <img src="images/loupe-private-eye.png" alt="loupe" class="w-4">
                                             </a>
                                         </td>
                                     </tr>
                                     <?php endforeach ?>
-                                <?php } ?>
+                                    
+                            <?php } ?>
                 </tbody>
             </table>
         </div>
