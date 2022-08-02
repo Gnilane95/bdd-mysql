@@ -20,5 +20,5 @@ $query = $pdo->prepare ($sql);
 $query->execute([$id]);
 
 //6-redirection
-$_SESSION ["succes"] = "Le jeu est bien supprimé.";
+$_SESSION ["success"] = "Le jeu est bien supprimé.";
 header("Location:index.php");
