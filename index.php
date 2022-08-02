@@ -1,14 +1,27 @@
 <!-- header -->
 <?php
+$title = "Accueil";
 include ('partials/_header.php');
+include ('helpers/functions.php');
 //inclure PDO pour la connexion à la BDD
 require_once ("helpers/pdo.php");
-$title = "Accueil";
+
+//1-Requête pour récupérer mes jeux
+$sql = "SELECT * FROM jeux";
+
+//2-on prépare la requête (preformatter une requête)
+$query = $pdo->prepare($sql);
+//3-Execute ma requête
+$query->execute();
+//4-On stock le résultat dans une variable
+$games = $query->fetchAll();
+debug_array($games);
+
 ?>
     <!-- main content -->
     <main class="mx-20 my-12">
         <div class="wrap_content-head text-center mb-20">
-            <h1 class="text-blue-500 font-bold text-5xl">App-Game</h1>
+            <h1 class="text-blue-500 font-black text-5xl">App-Game</h1>
             <p class="pt-3 font-medium italic">L'app qui répertorie vos jeux</p>
         </div>
 
