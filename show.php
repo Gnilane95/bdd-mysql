@@ -46,7 +46,7 @@ if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
             <img src="images/zelda.avif" alt="" class="w-72">
             <p class="px-20"><?= $game ["desciption"] ?></p>
         </div>
-
+        <a href="delate.php?id=<?= $game["id"] ?>&name=<?= $game["name"] ?>" class="btn btn-error mt-10 mx-48">Supprimer le jeu</a>
     </main>
 <!-- end main content -->
     
