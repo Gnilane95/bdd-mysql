@@ -15,6 +15,6 @@ try {
     ));
     //affiche message ok connexion
     echo "Connexion établie";
-} catch () {
-    
+} catch (PDOException $e) {
+    echo "Erreur de connexion : ".$e->getMessage();
 }

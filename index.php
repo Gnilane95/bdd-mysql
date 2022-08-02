@@ -1,6 +1,8 @@
 <!-- header -->
 <?php
 include ('partials/_header.php');
+//inclure PDO pour la connexion à la BDD
+require_once ("helpers/pdo.php");
 $title = "Accueil";
 ?>
     <!-- main content -->
