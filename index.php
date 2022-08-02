@@ -1,5 +1,6 @@
 <!-- header -->
 <?php
+session_start();
 $title = "Accueil";
 include ('partials/_header.php');
 include ('helpers/functions.php');
@@ -21,9 +22,21 @@ $games = $query->fetchAll();
 ?>
     <!-- main content -->
     <main class="mx-20 my-12">
-        <div class="wrap_content-head text-center mb-20">
+        <div class="wrap_content-head text-center mb-10">
             <h1 class="text-blue-500 font-black text-5xl">App-Game</h1>
             <p class="pt-3 font-medium italic">L'app qui répertorie vos jeux</p>
+            
+            <?php
+            //Vérifier si la session error est vide ou pas
+            if ($_SESSION ["error"]) { ?>
+                <div class="bg-red-400 py-3 mt-3 mx-72 text-lg font-bold text-white">
+                    <?= $_SESSION ["error"] ?>
+                </div>
+            <?php } else {
+                echo "";
+            }
+            $_SESSION["error"] = [];
+            ?>
         </div>
 
         <div class="overflow-x-auto">
