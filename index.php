@@ -31,9 +31,13 @@ $title = "Accueil";
                         <td>Marion</td>
                         <td>Plateforme</td>
                         <td>Switch</td>
-                        <td>3</td>
+                        <td>33.99</td>
                         <td>7</td>
-                        <td><img src="images/loupe-private-eye.png" alt="loupe" class="w-4"></td>
+                        <td>
+                            <a href="show.php">
+                                <img src="images/loupe-private-eye.png" alt="loupe" class="w-4">
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
