@@ -25,7 +25,11 @@ $games = $query->fetchAll();
         <div class="wrap_content-head text-center mb-10">
             <h1 class="text-blue-500 font-black text-5xl">App-Game</h1>
             <p class="pt-3 font-medium italic">L'app qui répertorie vos jeux</p>
-            
+            <!-- button ajouter un jeu-->
+            <div class="mt-10">
+                <a href="addGame.php" class="btn btn-primary">Ajouter un jeu</a>
+            </div>
+
             <?php
             //Vérifier si la session error est vide ou pas
             if ($_SESSION ["error"]) { ?>
@@ -58,27 +62,27 @@ $games = $query->fetchAll();
                     </tr>
                 </thead>
                 <tbody>
-                           <?php
-                                if (count($games) == 0) {
-                                    echo "<tr><td class=text-center>Pas de jeux disponibles actuellement.</td></tr>";
-                                } else { ?>
-                                    <?php foreach ($games as $game) : ?>
-                                    <tr>
-                                        <th><?= $game ['id'] ?></th>
-                                        <td><?= $game ['name'] ?></td>
-                                        <td><?= $game ['genre'] ?></td>
-                                        <td><?= $game ['plateforms'] ?></td>
-                                        <td><?= $game ['price'] ?></td>
-                                        <td><?= $game ['PEGI'] ?></td>
-                                        <td>
-                                            <a href="show.php?id=<?= $game['id']?>&name=<?= $game['name']?>">
-                                                <img src="images/loupe-private-eye.png" alt="loupe" class="w-4">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach ?>
+                        <?php
+                            if (count($games) == 0) {
+                                echo "<tr><td class=text-center>Pas de jeux disponibles actuellement.</td></tr>";
+                            } else { ?>
+                                <?php foreach ($games as $game) : ?>
+                                <tr>
+                                    <th><?= $game ['id'] ?></th>
+                                    <td><?= $game ['name'] ?></td>
+                                    <td><?= $game ['genre'] ?></td>
+                                    <td><?= $game ['plateforms'] ?></td>
+                                    <td><?= $game ['price'] ?></td>
+                                    <td><?= $game ['PEGI'] ?></td>
+                                    <td>
+                                        <a href="show.php?id=<?= $game['id']?>&name=<?= $game['name']?>">
+                                            <img src="images/loupe-private-eye.png" alt="loupe" class="w-4">
+                                        </a>
+                                    </td>
+                                </tr>
+                                <?php endforeach ?>
                                     
-                            <?php } ?>
+                        <?php } ?>
                 </tbody>
             </table>
         </div>
