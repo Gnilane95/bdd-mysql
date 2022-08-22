@@ -17,90 +17,7 @@ $success = false ;
 
 if (!empty($_POST["submited"])) {
     //2-Faille xss
-    	$nom = clear_xss($_POST["name"]);
-        $prix = clear_xss($_POST["price"]);
-        // clear array genre with foreach
-        $genres = !empty($_POST["genre"]) ? $_POST["genre"] : [];
-        $genre_clear = [];
-        foreach ($genres as $genre) {  
-            //je lave chaque élément et je l'insère dans le nouveau tableau
-            $genre_clear = clear_xss ($genre);
-        }
-        $note = clear_xss($_POST["note"]);
-        // clear array genre with foreach
-        $plateforms = $_POST["plateforms"];
-        $plateform_clear = [];
-        foreach ($plateforms as $plateform){
-            //je lave chaque élément et je l'insère dans le nouveau tableau
-             $plateform_clear = clear_xss ($plateform);
-        }
-        $description = clear_xss($_POST["description"]);
-        $pegi = clear_xss($_POST["pegi"]);
-
-        #debug_array ($_POST);
-
-        //3-Validation de chaque input
-    //////////////////////////////////
-    //name
-    if (!empty ($nom)){
-			if (strlen($nom)<=3) {
-				$error["name"] = "<span class=text-red-500>3 caractères minimum</span>";
-			}elseif (strlen($nom)>100) {
-				$error["name"] = "<span class=text-red-500>100 caractères maximun</span>";
-			}
-    }else{
-      $error["name"] = $errorMessage;
-    }
-
-    //price
-    if (!empty ($prix)){
-			if (is_numeric($prix) && is_float($prix)) {
-				$error["price"] = "<span class=text-red-500>Veuillez rentrez un nombre</span>";
-			}elseif (($prix)<0) {
-				$error["price"] = "<span class=text-red-500>Veuillez rentrez un chiffre supérieur à 0</span>";
-			}elseif (($prix)>200) {
-				$error["price"] = "<span class=text-red-500>Veuillez rentrez un chiffre inférieur à 200</span>";
-			}
-    }else{
-        $error["price"] = $errorMessage;
-    }
-
-    //note
-    if (!empty ($note)){
-			if (is_numeric($note) && is_float($note)) {
-				$error["note"] = "<span class=text-red-500>Veuillez rentrez un nombre</span>";
-			}elseif (($note)<0) {
-				$error["note"] = "<span class=text-red-500>Veuillez rentrez un chiffre supérieur à 0</span>";
-			}elseif (($note)>200) {
-				$error["note"] = "<span class=text-red-500>Veuillez rentrez un chiffre inférieur à 200</span>";
-			}
-    }else{
-        $error["note"] = $errorMessage;
-    }
-
-    //genre
-    if (!empty ($genre_clear)){
-        debug_array ($genre_clear);
-			if ($genre_clear == "Aventure" || $genre_clear == "Course" || $genre_clear == "FPS" || $genre_clear == "RPG") {
-				echo "cool";
-			}else {
-				$error["genre"] = "Les éléments ne sont pas dans le tableau.";
-			}
-    }else{
-        $error["genre"] = $errorMessage;
-    }
-
-    //description
-		if (!empty($description)) {
-			if (strlen($description)<=30) {
-				$error["description"] = "<span class=text-danger>30 caractères minimum</span>";
-			}elseif (strlen($nom)>300) {
-				$error["description"] = "<span class=text-danger>120 caractères maximun</span>";
-			}
-		}else{
-			$error["description"] = $errorMessage;
-		}
-        debug_array ($error);
+        require_once("validation-formulaire/include.php");
 }
 
 ?>
@@ -187,6 +104,12 @@ if (!empty($_POST["submited"])) {
             </div>
             <?php endforeach ?>
         </div>
+        <p>
+            <?php
+			if(!empty($error["plateforms"])){
+					echo $error["plateforms"];
+			} ?>
+        </p>
         <!-- input description -->
         <div class="mb-3">
             <label for="description" class="block font-semibold text-blue-900">Description</label>
@@ -216,6 +139,12 @@ if (!empty($_POST["submited"])) {
                 <option value="<?= $peggi ["name"]?>"><?= $peggi ["name"]?></option>
                 <?php endforeach ?>
             </select>
+            <p>
+                <?php
+				if(!empty($error["pegi"])){
+					echo $error["pegi"];
+				} ?>
+            </p>
         </div>
         <!-- submit btn -->
         <div>
