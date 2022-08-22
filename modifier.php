@@ -39,17 +39,7 @@ if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
 
 <!-- main content -->
     <main class="mx-20 my-12">
-        <div class="wrap_content-head text-center mb-20">
-            <h1 class="text-blue-500 font-bold text-5xl"><?= $game ["name"] ?></h1>
-        </div>
-        <div class="flex items-center mx-48">
-            <img src="images/zelda.avif" alt="" class="w-72">
-            <p class="px-20"><?= $game ["description"] ?></p>
-        </div>
-        <div class="mt-6 justify mx-48">
-            <a href="modifier.php?id=<?= $game["id"] ?>&name=<?= $game["name"] ?>" class="btn btn-success mt-10 ">Modifier</a>
-            <?php include("partials/_modal.php") ?>
-        </div>
+       
     </main>
 <!-- end main content -->
     
@@ -57,3 +47,7 @@ if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
 <?php
 include ('partials/_footer.php');
 ?>
+
+<div class="pt-16">
+    
+</div>

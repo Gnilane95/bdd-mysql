@@ -18,13 +18,18 @@ $success = false ;
 if (!empty($_POST["submited"])) {
     //2-Faille xss
         require_once("validation-formulaire/include.php");
+        if (count($error) == 0){
+            require_once("sql/addGame-sql.php");
+        }
+        var_dump (count($error));
 }
 
 ?>
 
 <section>
-    <div class="wrap_content-head text-center my-3">
-        <h1 class="text-blue-500 font-bold text-5xl">Ajouter un jeu</h1>
+    <div class="wrap_content-head my-3">
+        <a href="index.php" class="mx-10 text-blue-800"><-Retour</a>
+        <h1 class=" text-center text-blue-500 font-bold text-5xl">Ajouter un jeu</h1>
     </div>
     <form action="" method="POST" class="mx-48">
         <!-- input name -->
@@ -63,7 +68,10 @@ if (!empty($_POST["submited"])) {
             <?php foreach ($genreArray as $genre) : ?>
             <div class="flex items-center space-x-2 ">
                 <label for="genre" class="block font-semibold"><?= $genre ["name"]?></label>
-                <input type="checkbox" name="genre[]" class="checkbox" value="<?= $genre ["name"]?>" <?= !empty ($genre ["checked"]) ? "checked" : ""; ?> />
+                <input type="checkbox" name="genre[]" class="checkbox" value="<?= $genre ["name"]?>" <?php 
+                if (!empty($_POST["genre"])){
+                    if (in_array($genre["name"], $_POST["genre"])) echo "checked" ;
+                } ?>/>
             </div>
             <?php endforeach ?>
         </div>
@@ -100,20 +108,23 @@ if (!empty($_POST["submited"])) {
             <?php foreach ($plateformArray as $plateform) : ?>
             <div class="flex items-center space-x-2 ">
                 <label for="plateforms" class="block  font-semibold"><?= $plateform ["name"]?></label>
-                <input type="checkbox" name="plateforms[]" class="checkbox" value="<?= $plateform ["name"]?>" <?= !empty ($plateform ["checked"]) ? "checked" : ""; ?>/>
+                <input type="checkbox" name="plateforms[]" class="checkbox" value="<?= $plateform ["name"]?>" <?php if (!empty($_POST["plateforms"])){
+                    if (in_array($plateform["name"], $_POST["plateforms"])) echo "checked" ;
+                }
+                ?>/>
             </div>
             <?php endforeach ?>
         </div>
         <p>
             <?php
 			if(!empty($error["plateforms"])){
-					echo $error["plateforms"];
+				echo $error["plateforms"];
 			} ?>
         </p>
         <!-- input description -->
         <div class="mb-3">
             <label for="description" class="block font-semibold text-blue-900">Description</label>
-            <textarea type="text" name="description" placeholder="" class="textarea textarea-bordered h-48 w-full max-w-sm"><?php if(!empty($_POST["description"])){echo $_POST["description"];} ?> </textarea>
+            <textarea type="text" name="description" placeholder="" class="textarea textarea-bordered h-48 w-full max-w-sm"> <?php if(!empty($_POST["description"])){echo $_POST["description"];} ?> </textarea>
             <p>
                 <?php
 				if(!empty($error["description"])){
@@ -123,20 +134,25 @@ if (!empty($_POST["submited"])) {
         </div>
         <!-- input pegi -->
         <?php
-        $peggiArray = [
+        $pegiArray = [
             ["name" => 3],
             ["name" => 7],
             ["name" => 12],
             ["name" => 16],
             ["name" => 18],
         ];
+        
         ?>
         <div class="mb-3">
             
             <select class="select select-bordered w-full max-w-sm" name="pegi">
-                <option disabled selected>Choose PEGI</option>
-                <?php foreach ($peggiArray as $peggi) : ?>
-                <option value="<?= $peggi ["name"]?>"><?= $peggi ["name"]?></option>
+                <option disabled selected>Choose</option>
+                <?php foreach ($pegiArray as $pegi) : ?>
+                <option value="<?= $pegi ["name"]?>" <?php
+                    //Je sauvegarde en mémoire ce que le user a choisi
+                    if (!empty($_POST["pegi"])) {
+                        if($_POST["pegi"] == $pegi["name"]) echo 'selected="selected"';
+                    } ?> > <?= $pegi ["name"] ?> </option>
                 <?php endforeach ?>
             </select>
             <p>

@@ -1,4 +1,4 @@
 <?php
- if (empty($pegi)) {
-        $error["pegi"] = $errorMessage;
-    }
+if (empty($pegi)) {
+    $error["pegi"] = $errorMessage;
+}
