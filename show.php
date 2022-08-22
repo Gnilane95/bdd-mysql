@@ -46,6 +46,11 @@ if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
             <img src="images/zelda.avif" alt="" class="w-72">
             <p class="px-20"><?= $game ["description"] ?></p>
         </div>
+        <div class="pt-6 flex space-x-4 mx-48 font-bold">
+            <p>Genre : <?= $game["genre"] ?></p>
+            <p>Prix : <?= $game["price"] ?><span class="font-bold text-blue-500"> €</span></p>
+            <p>Note : <?= $game["note"] ?>/10</p>
+        </div>
         <div class="mt-6 justify mx-48">
             <a href="modifier.php?id=<?= $game["id"] ?>&name=<?= $game["name"] ?>" class="btn btn-success mt-10 ">Modifier</a>
             <?php include("partials/_modal.php") ?>
