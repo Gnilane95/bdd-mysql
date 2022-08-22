@@ -8,7 +8,7 @@ include ('helpers/functions.php');
 require_once ("helpers/pdo.php");
 
 //1-Requête pour récupérer mes jeux
-$sql = "SELECT * FROM jeux";
+$sql = "SELECT * FROM jeux ORDER BY name";
 
 //2-on prépare la requête (preformatter une requête)
 $query = $pdo->prepare($sql);
@@ -52,7 +52,7 @@ $games = $query->fetchAll();
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th></th>
                         <th>Nom</th>
                         <th>Genre</th>
                         <th>Plateforme</th>
@@ -63,12 +63,13 @@ $games = $query->fetchAll();
                 </thead>
                 <tbody>
                         <?php
+                            $index = 1 ;
                             if (count($games) == 0) {
                                 echo "<tr><td class=text-center>Pas de jeux disponibles actuellement.</td></tr>";
                             } else { ?>
                                 <?php foreach ($games as $game) : ?>
                                 <tr>
-                                    <th><?= $game ['id'] ?></th>
+                                    <th><?= $index++ ?></th>
                                     <td><?= $game ['name'] ?></td>
                                     <td><?= $game ['genre'] ?></td>
                                     <td><?= $game ['plateforms'] ?></td>
