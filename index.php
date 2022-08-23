@@ -31,6 +31,9 @@ $games = $query->fetchAll();
             </div>
 
             <?php
+            //Supprimer les erreurs au démarrage de l'app
+            $_SESSION["error"] = [];
+            $_SESSION["success"] = [];
             //Vérifier si la session error est vide ou pas
             if ($_SESSION ["error"]) { ?>
                 <div class="bg-red-400 py-3 mt-3 mx-72 text-lg font-bold text-white">
@@ -59,6 +62,7 @@ $games = $query->fetchAll();
                         <th>Prix</th>
                         <th>Pegi</th>
                         <th>Voir</th>
+                        <th>Supprimer</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,17 +72,20 @@ $games = $query->fetchAll();
                                 echo "<tr><td class=text-center>Pas de jeux disponibles actuellement.</td></tr>";
                             } else { ?>
                                 <?php foreach ($games as $game) : ?>
-                                <tr>
-                                    <th><?= $index++ ?></th>
-                                    <td><?= $game ['name'] ?></td>
-                                    <td><?= $game ['genre'] ?></td>
-                                    <td><?= $game ['plateforms'] ?></td>
-                                    <td><?= $game ['price'] ?></td>
-                                    <td><?= $game ['PEGI'] ?></td>
+                                <tr class="hover:text-blue-500 hover:font-bold">
+                                    <th class="text-red-500"><?= $index++ ?></th>
+                                    <td><a href="show.php?id=<?= $game['id']?>&name=<?= $game['name']?>"><?= $game ['name'] ?></a></td>
+                                    <td><a href="show.php?id=<?= $game['id']?>&name=<?= $game['name']?>"><?= $game ['genre'] ?></a></td>
+                                    <td><a href="show.php?id=<?= $game['id']?>&name=<?= $game['name']?>"><?= $game ['plateforms'] ?></a></td>
+                                    <td><a href="show.php?id=<?= $game['id']?>&name=<?= $game['name']?>"><?= $game ['price'] ?></a></td>
+                                    <td><a href="show.php?id=<?= $game['id']?>&name=<?= $game['name']?>"><?= $game ['PEGI'] ?></a></td>
                                     <td>
                                         <a href="show.php?id=<?= $game['id']?>&name=<?= $game['name']?>">
                                             <img src="images/loupe-private-eye.png" alt="loupe" class="w-4">
                                         </a>
+                                    </td>
+                                    <td>
+                                        <?php include ('partials/_modal.php') ?>
                                     </td>
                                 </tr>
                                 <?php endforeach ?>
