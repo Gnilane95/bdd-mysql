@@ -7,15 +7,7 @@ include ('helpers/functions.php');
 //inclure PDO pour la connexion à la BDD
 require_once ("helpers/pdo.php");
 
-//1-Requête pour récupérer mes jeux
-$sql = "SELECT * FROM jeux ORDER BY name";
-
-//2-on prépare la requête (preformatter une requête)
-$query = $pdo->prepare($sql);
-//3-Execute ma requête
-$query->execute();
-//4-On stock le résultat dans une variable
-$games = $query->fetchAll();
+require_once ("sql/selectAll-sql.php");
 #debug_array($games);
 
 
@@ -23,31 +15,16 @@ $games = $query->fetchAll();
     <!-- main content -->
     <main class="mx-20 my-12">
         <div class="wrap_content-head text-center mb-10">
-            <h1 class="text-blue-500 font-black text-5xl">App-Game</h1>
+            <?php 
+            $main_title = "App Game";
+            include('partials/_h1.php');
+            ?>
             <p class="pt-3 font-medium italic">L'app qui répertorie vos jeux</p>
             <!-- button ajouter un jeu-->
             <div class="mt-10">
                 <a href="addGame.php" class="btn btn-primary">Ajouter un jeu</a>
             </div>
-
-            <?php
-            //Supprimer les erreurs au démarrage de l'app
-            $_SESSION["error"] = [];
-            $_SESSION["success"] = [];
-            //Vérifier si la session error est vide ou pas
-            if ($_SESSION ["error"]) { ?>
-                <div class="bg-red-400 py-3 mt-3 mx-72 text-lg font-bold text-white">
-                    <?= $_SESSION ["error"] ?>
-                </div>
-            <?php } elseif ($_SESSION ["success"]) { ?>
-                <div class="bg-green-400 py-3 mt-3 mx-72 text-lg font-bold text-white">
-                    <?= $_SESSION ["success"]; ?>
-                </div>
-           <?php }
-            //je vide ma variable session pour qu'il n'affiche pas de message
-            $_SESSION["error"] = [];
-            $_SESSION["success"] = [];
-            ?>
+            <?php require_once('partials/_alert.php') ?>
         </div>
 
         <div class="overflow-x-auto">
