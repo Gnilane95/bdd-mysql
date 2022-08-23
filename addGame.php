@@ -29,7 +29,10 @@ if (!empty($_POST["submited"])) {
 <section>
     <div class="wrap_content-head my-3">
         <a href="index.php" class="mx-10 text-blue-800"><-Retour</a>
-        <h1 class=" text-center text-blue-500 font-bold text-5xl">Ajouter un jeu</h1>
+        <?php 
+            $main_title = "Ajouter un jeu";
+            include('partials/_h1.php');
+        ?>
     </div>
     <form action="" method="POST" class="mx-48">
         <!-- input name -->
