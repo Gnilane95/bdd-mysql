@@ -39,7 +39,7 @@ if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
     header("Location: index.php");
 };
 //2-J'envoie vers la BDD
-if (!empty($_POST["submited"])) {
+if (!empty($_POST["submited"]) && isset($_FILES["url_img"]) && $_FILES["url_img"]["error"] == 0) {
     //2-Faille xss
         require_once("validation-formulaire/include.php");
         if (count($error) == 0){
@@ -187,6 +187,19 @@ if (!empty($_POST["submited"])) {
         </div>
         <!-- input id -->
         <input type="hidden" name="id" value="<?= $game["id"]?>">
+
+        <!-- upload img -->
+        <div class="py-5">
+            <label for="url_img" class="block font-bold text-blue-900">Votre image</label>
+            <input type="file" name="url_img" id="url_img" class="pt-3">
+            <p>
+                <?php
+				if(!empty($error["url_img"])){
+					echo $error["url_img"];
+				} ?>
+            </p>
+        </div>
+
         <!-- submit btn -->
         <div>
           <input type="submit" name="submited" value="Modifier" class="btn btn-primary bg-blue-600">  

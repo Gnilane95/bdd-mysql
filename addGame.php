@@ -15,9 +15,10 @@ $error = [];
 $errorMessage = "<span class=text-red-500>Ce champs est obligatoire</span>";
 $success = false ;
 
-if (!empty($_POST["submited"])) {
+if (!empty($_POST["submited"]) && isset($_FILES["url_img"]) && $_FILES["url_img"]["error"] == 0) {
     //2-Faille xss
         require_once("validation-formulaire/include.php");
+        #debug_array($_FILES);
         if (count($error) == 0){
             require_once("sql/addGame-sql.php");
         }
@@ -34,7 +35,7 @@ if (!empty($_POST["submited"])) {
             include('partials/_h1.php');
         ?>
     </div>
-    <form action="" method="POST" class="mx-48">
+    <form action="" method="POST" class="mx-48" enctype="multipart/form-data">
         <!-- input name -->
         <div class="mb-3">
             <label for="name" class="block font-semibold text-blue-900">Name</label>
@@ -162,6 +163,17 @@ if (!empty($_POST["submited"])) {
                 <?php
 				if(!empty($error["pegi"])){
 					echo $error["pegi"];
+				} ?>
+            </p>
+        </div>
+        <!-- upload img -->
+        <div class="py-5">
+            <label for="url_img" class="block font-bold text-blue-900">Votre image</label>
+            <input type="file" name="url_img" id="url_img" class="pt-3">
+            <p>
+                <?php
+				if(!empty($error["url_img"])){
+					echo $error["url_img"];
 				} ?>
             </p>
         </div>

@@ -18,3 +18,4 @@ foreach ($plateforms as $plateform){
 }
 $description = clear_xss($_POST["description"]);
 $pegi = !empty($_POST["pegi"]) ? clear_xss($_POST["pegi"]) : [] ;
+$url_img = $GLOBALS["img_upload_path"] ;

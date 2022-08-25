@@ -5,6 +5,7 @@ session_start();
 $title = "Accueil";
 include ('partials/_header.php');
 include ('helpers/functions.php');
+#include ('validation-formulaire/input-upload.php');
 //inclure PDO pour la connexion à la BDD
 require_once ("helpers/pdo.php");
 //debug_array($_GET)
@@ -43,7 +44,10 @@ if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
             <h1 class="text-blue-500 font-bold text-5xl"><?= $game ["name"] ?></h1>
         </div>
         <div class="flex items-center mx-48">
-            <img src="images/zelda.avif" alt="" class="w-72">
+            <?php
+            if ($game["url_img"] != null) { ?>
+                <img src="<?= $game["url_img"] ?>" alt="<?=$game["url_img"]?>" class="w-48">
+            <?php } ?>
             <p class="px-20"><?= $game ["description"] ?></p>
         </div>
         <div class="pt-6 flex space-x-4 mx-48 font-bold">
